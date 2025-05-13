@@ -4,6 +4,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.webapp.name }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.webapp.ingress.hostname }}
+    external-dns.alpha.kubernetes.io/ttl: "120" #optional
+  {{- with .Values.webapp.ingress.annotations }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   rules:
     - host: {{ .Values.webapp.ingress.hostname }}

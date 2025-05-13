@@ -1,19 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { .Values.webapp.name } }
+  name: {{ .Values.name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: { { .Values.webapp.name } }
+      app: {{ .Values.name }}
   template:
     metadata:
       labels:
-        app: { { .Values.webapp.name } }
+        app: {{ .Values.name }}
     spec:
+      {{- with .Values.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
-        - name: { { .Values.webapp.name } }
-          image: { { .Values.webapp.image } }
+        - name: {{ .Values.name }}
+          image: {{ .Values.image }}:{{ .Values.tag }}
+          {{- with .Values.volumeMounts }}
+          containers:
+              volumeMounts:
+                {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
-            - containerPort: { { .Values.webapp.port } }
+            - containerPort: {{ .Values.port }}
+          env:
+            {{- with .Values.env }}
+            {{- range $key, $value := . }}
+            - name: {{ $key }}
+              value: "{{ $value }}"
+            {{- end }}
+            {{- end }}
+            {{- with .Values.envFromSecrets }}
+            {{- range . }}
+            - name: {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretName }}
+                  key: {{ .secretKey }}
+            {{- end }}
+            {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
