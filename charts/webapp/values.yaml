@@ -1,39 +1,52 @@
 name: example-webapp
-image: nginx
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
 port: 80
+
 ingress:
   enabled: false
   hostname: example.local
-  # env:
-  #   ENV_VAR_ONE: value1
-  #   ENV_VAR_TWO: value2
-  # envFromSecrets:
-  #   - name: SECRET_API_KEY
-  #     secretName: my-secret
-  #     secretKey: api-key
-  #   - name: DB_PASSWORD
-  #     secretName: db-secret
-  #     secretKey: password
-  # initContainers:
-  #   - name: init-myservice
-  #     image: busybox
-  #     command: ['sh', '-c', 'echo init container']
-  # livenessProbe:
-  #   httpGet:
-  #     path: /
-  #     port: 80
-  #   initialDelaySeconds: 3
-  #   periodSeconds: 10
-  # readinessProbe:
-  #   httpGet:
-  #     path: /
-  #     port: 80
-  #   initialDelaySeconds: 5
-  #   periodSeconds: 10
-  # volumes:
-  #   - name: config-volume
-  #     configMap:
-  #       name: my-config
-  # volumeMounts:
-  #   - name: config-volume
-  #     mountPath: /etc/config
+  annotations: {}
+
+env:
+  []
+  # - name: ENV_VAR_ONE
+  #   value: "value1"
+  # - name: ENV_VAR_TWO
+  #   value: "value2"
+
+envFromSecrets:
+  []
+  # - name: SECRET_API_KEY
+  #   secretName: my-secret
+  #   secretKey: api-key
+  # - name: DB_PASSWORD
+  #   secretName: db-secret
+  #   secretKey: password
+
+initContainers: []
+#   - name: init-myservice
+#     image: busybox
+#     command: ['sh', '-c', 'echo init container']
+
+# livenessProbe:
+#   httpGet:
+#     path: /
+#     port: 80
+#   initialDelaySeconds: 3
+#   periodSeconds: 10
+# readinessProbe:
+#   httpGet:
+#     path: /
+#     port: 80
+#   initialDelaySeconds: 5
+#   periodSeconds: 10
+# volumes:
+#   - name: config-volume
+#     configMap:
+#       name: my-config
+# volumeMounts:
+#   - name: config-volume
+#     mountPath: /etc/config

@@ -18,19 +18,19 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Values.name }}
-          image: {{ .Values.image }}:{{ .Values.tag }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- with .Values.volumeMounts }}
-          containers:
-              volumeMounts:
-                {{- toYaml . | nindent 12 }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
             - containerPort: {{ .Values.port }}
           env:
             {{- with .Values.env }}
-            {{- range $key, $value := . }}
-            - name: {{ $key }}
-              value: "{{ $value }}"
+            {{- range . }}
+            - name: {{ .name }}
+              value: "{{ .value }}"
             {{- end }}
             {{- end }}
             {{- with .Values.envFromSecrets }}
