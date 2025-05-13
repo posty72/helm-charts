@@ -11,3 +11,23 @@ spec:
       targetPort: {{ .Values.port }}
   type: ClusterIP
 {{- end }}
+
+{{- if and .Values.service.enabled .Values.service.loadBalancer.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}-lb
+spec:
+  selector:
+    app: {{ .Values.name }}
+  ports:
+    - port: {{ .Values.port }}
+      targetPort: {{ .Values.port }}
+      protocol: TCP
+  type: LoadBalancer
+  {{- if .Values.service.loadBalancer.externalIp }}
+  externalIPs:
+    - {{ .Values.service.loadBalancer.externalIp }}
+  {{- end }}
+{{- end }}

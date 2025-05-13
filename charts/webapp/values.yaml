@@ -5,10 +5,22 @@ image:
   pullPolicy: IfNotPresent
 port: 80
 
+service:
+  enabled: true
+  loadBalancer:
+    enabled: false
+    externalIp: "" # Example: "192.168.1.100"
+
 ingress:
   enabled: false
   hostname: example.local
+  public: false # Set to true for internet-accessible ingress
+  externalIp: "" # Example: "192.168.1.100"
   annotations: {}
+  # Additional custom annotations example:
+  # annotations:
+  #   kubernetes.io/ingress.class: traefik
+  #   traefik.ingress.kubernetes.io/router.middlewares: default-strip-prefix@kubernetescrd
 
 env:
   []
