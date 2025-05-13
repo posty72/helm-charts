@@ -22,18 +22,10 @@ metadata:
   {{- end }}
 spec:
   {{- if not .Values.ingress.public }}
-  ingress_class_name: "traefik"
-  {{- end }}
-  {{- if not .Values.ingress.public }}
   tls:
     - hosts:
         - {{ .Values.ingress.hostname }}
       secretName: "{{ .Values.name }}-tls"
-  default_backend:
-    service:
-      name: "echoheaders-default"
-      port:
-        number: 80
   {{- end }}
   rules:
     - host: {{ .Values.ingress.hostname }}
