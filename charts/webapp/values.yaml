@@ -1,9 +1,9 @@
 name: example-webapp
-  image: nginx
-  port: 80
-  ingress:
-    enabled: false
-    hostname: example.local
+image: nginx
+port: 80
+ingress:
+  enabled: false
+  hostname: example.local
   # env:
   #   ENV_VAR_ONE: value1
   #   ENV_VAR_TWO: value2
