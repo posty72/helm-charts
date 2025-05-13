@@ -1,0 +1,7 @@
+webapp:
+  name: example-webapp
+  image: nginx
+  port: 80
+  ingress:
+    enabled: false
+    hostname: example.local
