@@ -1,25 +1,25 @@
 
-{{- if .Values.webapp.ingress.enabled }}
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.webapp.name }}
+  name: {{ .Values.name }}
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: {{ .Values.webapp.ingress.hostname }}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.hostname }}
     external-dns.alpha.kubernetes.io/ttl: "120" #optional
-  {{- with .Values.webapp.ingress.annotations }}
+  {{- with .Values.ingress.annotations }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   rules:
-    - host: {{ .Values.webapp.ingress.hostname }}
+    - host: {{ .Values.ingress.hostname }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.webapp.name }}
+                name: {{ .Values.name }}
                 port:
-                  number: {{ .Values.webapp.port }}
+                  number: {{ .Values.port }}
 {{- end }}
