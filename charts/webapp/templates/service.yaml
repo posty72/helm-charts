@@ -1,14 +1,13 @@
-
 {{- if .Values.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: { { .Values.name } }
+  name: {{ .Values.name }}
 spec:
   selector:
-    app: { { .Values.name } }
+    app: {{ .Values.name }}
   ports:
-    - port: { { .Values.port } }
-      targetPort: { { .Values.port } }
+    - port: {{ .Values.port }}
+      targetPort: {{ .Values.port }}
   type: ClusterIP
-{{ - end }}
+{{- end }}
