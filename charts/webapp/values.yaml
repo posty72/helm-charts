@@ -5,9 +5,10 @@ image:
   pullPolicy: IfNotPresent
   pullSecrets: []
 port:
-  number: 80
-  name: http
-  targetPort: 80
+  {}
+  # number: 80
+  # name: http
+  # targetPort: 80
 
 service:
   enabled: true
