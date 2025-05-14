@@ -4,7 +4,10 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
   pullSecrets: []
-port: 80
+port:
+  number: 80
+  name: http
+  targetPort: 80
 
 service:
   enabled: true

@@ -29,7 +29,9 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
-            - containerPort: {{ .Values.port }}
+            - containerPort: {{ .Values.port.number }}
+              name: {{ .Values.port.name }}
+              protocol: TCP
           env:
             {{- with .Values.env }}
             {{- range . }}

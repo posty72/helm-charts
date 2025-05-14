@@ -7,7 +7,8 @@ spec:
   selector:
     app: {{ .Values.name }}
   ports:
-    - port: {{ .Values.port }}
-      targetPort: {{ .Values.port }}
+    - port: {{ .Values.port.number }}
+      targetPort: {{ .Values.port.targetPort | default .Values.port.number }}
+      name: {{ .Values.port.name }}
   type: ClusterIP
 {{- end }}
