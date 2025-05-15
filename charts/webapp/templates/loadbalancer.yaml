@@ -11,4 +11,4 @@ spec:
       port: {{ .Values.port.number }}
       targetPort: {{ .Values.port.targetPort | default .Values.port.number }}
   type: LoadBalancer
-{{ -end }}
+{{- end }}
