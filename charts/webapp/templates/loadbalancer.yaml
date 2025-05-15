@@ -1,0 +1,14 @@
+{{- if .Values.ingress.public -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}-lb
+spec:
+  selector:
+    app: {{ .Values.name }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.port.number }}
+      targetPort: {{ .Values.port.targetPort | default .Values.port.number }}
+  type: LoadBalancer
+{{- end }}

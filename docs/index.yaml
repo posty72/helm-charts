@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  job:
+  - apiVersion: v2
+    created: "2025-05-15T22:33:48.791951108Z"
+    description: A generic job chart
+    digest: a2f0216b9b401d17437ff7849845ee1652d7bb72e1f28c2f43a2e1021bc99531
+    name: job
+    type: application
+    urls:
+    - https://posty72.github.io/helm-charts/job-0.1.0.tgz
+    version: 0.1.0
+  webapp:
+  - apiVersion: v2
+    created: "2025-05-15T22:33:48.792188386Z"
+    description: A generic webapp chart
+    digest: baadfa13259da7ffe466703f28278ab14f354191cfbaa257991a02a39f7922f3
+    name: webapp
+    type: application
+    urls:
+    - https://posty72.github.io/helm-charts/webapp-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-05-15T22:33:48.79167664Z"

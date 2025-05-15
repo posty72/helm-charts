@@ -1,0 +1,7 @@
+# webapp/Chart.yaml
+apiVersion: v2
+name: webapp
+version: 0.1.0
+description: A generic webapp chart
+
+type: application
