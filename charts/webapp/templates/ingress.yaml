@@ -21,6 +21,7 @@ metadata:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  # public tls is handled by cloudflare
   {{- if not .Values.ingress.public }}
   tls:
     - hosts:
