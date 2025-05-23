@@ -1,0 +1,42 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.name }}
+  annotations:
+    {{- if .Values.ingress.public }}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.hostname }}
+    external-dns.alpha.kubernetes.io/ttl: "120" #optional
+    {{- else }}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.hostname }}
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    {{- if .Values.ingress.externalIp }}
+    external-dns.alpha.kubernetes.io/target: {{ .Values.ingress.externalIp }}
+    {{- end }}
+    cert-manager.io/cluster-issuer: "letsencrypt-dns"
+    traefik.ingress.kubernetes.io/router.entrypoints: "web,websecure"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    {{- end }}
+  {{- with .Values.ingress.annotations }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  # public tls is handled by cloudflare
+  {{- if not .Values.ingress.public }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.hostname }}
+      secretName: "{{ .Values.name }}-tls"
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.hostname }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.name }}
+                port:
+                  number: {{ .Values.port.number }}
+{{- end }}
