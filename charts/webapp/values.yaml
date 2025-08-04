@@ -46,6 +46,11 @@ initContainers: []
 #     image: busybox
 #     command: ['sh', '-c', 'echo init container']
 
+extraContainers: []
+#   - name: myservice
+#     image: busybox
+#     command: ['sh', '-c', 'echo container']
+
 # livenessProbe:
 #   httpGet:
 #     path: /
