@@ -1,0 +1,19 @@
+{{- if .Values.ingress.externalIp }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Values.name }}-allow-external-ip
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.name }}
+  ingress:
+    - from:
+        - ipBlock:
+            cidr: {{ .Values.ingress.externalIp }}/32
+      ports:
+        - protocol: TCP
+          port: {{ .Values.port.number }}
+  policyTypes:
+    - Ingress
+{{- end }}

@@ -1,0 +1,5 @@
+job:
+  name: example-job
+  image: busybox
+  command: ["echo", "Hello World"]
+  restartPolicy: Never
